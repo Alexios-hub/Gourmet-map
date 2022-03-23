@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.FavoriteMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Favorite">
+        <result column="recipe_id" jdbcType="INTEGER" property="recipe_id" />
+        <result column="user_id" jdbcType="VARCHAR" property="user_id" />
+    </resultMap>
+<!--增加收藏夹-->
+<insert id="addFavorite">
+    insert into favorite (user_id, recipe_id) values (#{userid},#{recipeid})
+</insert>
+<!--删除收藏夹-->
+    <delete id="removeFavorite" >
+        delete from favorite where recipe_id = #{recipeid} and user_id = #{userid}
+    </delete>
+<!-- 查询收藏夹-->
+    <select id="ifinFavorite" resultType="com.example.demo.entity.Favorite">
+        select * from favorite where user_id=#{userid} and recipe_id = #{recipeid}
+    </select>
+</mapper>

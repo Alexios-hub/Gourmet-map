@@ -1,0 +1,21 @@
+#服务器端口配置
+server:
+  port: 8088
+
+#数据库配置
+spring:
+  datasource:
+    username: eat_ios
+    password: Lhb1234
+    url: jdbc:mysql://150.158.47.16:3306/eat_ios
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+#mybatis配置
+
+#showSQL
+logging:
+  level:
+    com.example.demo.entity: debug
+mybatis-plus:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.example.demo.entity

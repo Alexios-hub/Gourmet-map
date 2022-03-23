@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.User">
+        <result column="user_id" jdbcType="VARCHAR" property="user_id" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="head_portrait" jdbcType="VARCHAR" property="head_portrait" />
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+    </resultMap>
+    <!--查询用户信息-->
+    <select id="getUser" resultType="com.example.demo.entity.User" parameterType="String">
+        select * from user where user_id = #{userid}
+    </select>
+    <!--删除用户信息-->
+    <delete id="delete" parameterType="String">
+        delete from user where user_id=#{userid}
+    </delete>
+    <!--返回所有用户信息-->
+    <select id="selectAll"  resultType="com.example.demo.entity.User">
+        select * from user
+    </select>
+
+    <!--增加用户信息-->
+    <insert id="add">
+        insert into user (user_id, password) values (#{email},#{password})
+
+    </insert>
+    <insert id="save" parameterType="com.example.demo.entity.User" >
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="user_id != null" >
+                user_id,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="head_portrait != null" >
+                head_portrait,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{user_id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null" >
+                #{head_portrait,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id更改用户信息-->
+    <update id="update" parameterType="com.example.demo.entity.User">
+        update user
+        <set >
+            <if test="password != null" >
+                name = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="head_portrait != null" >
+                salary = #{head_portrait,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{user_id,jdbcType=VARCHAR}
+    </update>
+</mapper>
+

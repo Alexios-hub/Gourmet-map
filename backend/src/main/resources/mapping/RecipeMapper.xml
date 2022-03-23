@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.RecipeMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.entity.Recipe">
+        <result column="recipe_id" jdbcType="INTEGER" property="recipe_id" />
+        <result column="recipe_name" jdbcType="VARCHAR" property="recipe_name" />
+        <result column="video" jdbcType="VARCHAR" property="video" />
+        <result column="recipe_history" jdbcType="VARCHAR" property="recipe_history"/>
+        <result column="to_do" jdbcType="VARCHAR" property="to_do"/>
+        <result column="recipe_description" jdbcType="VARCHAR" property="recipe_description"/>
+        <result column="recipe_image" jdbcType="VARCHAR" property="recipe_image"/>
+        <result column="recipelocation" jdbcType="VARCHAR" property="recipelocation"/>
+    </resultMap>
+<!--查询食谱信息-->
+    <select id="getRecipe" parameterType="String" resultType="com.example.demo.entity.Recipe">
+        select * from recipe where recipe_name = #{recipename}
+    </select>
+<!--查询所有食谱信息-->
+    <select id="getAllRecipe" resultType="com.example.demo.entity.Recipe">
+        select * from recipe
+    </select>
+<!--查询指定用户的收藏夹-->
+    <select id="getFavorate" parameterType="String" resultType="com.example.demo.entity.Recipe">
+        select recipe_id,recipe_name,recipe_history,to_do,recipe_description,recipe_image,video,recipelocation from favorite natural join recipe
+where user_id = #{email}
+    </select>
+</mapper>
